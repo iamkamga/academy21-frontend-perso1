@@ -1,0 +1,15 @@
+.next
+node_modules
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.git
+.gitignore
+README.md
+Dockerfile
+.dockerignore
+academy21-backend
+prisma
+.env
+.env.local
+.env*.local
