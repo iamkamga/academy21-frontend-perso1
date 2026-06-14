@@ -274,7 +274,7 @@ export default function HomePage() {
               borderTop: '1px solid rgba(255,255,255,0.1)',
             }}>
               {[
-                { num: '75+', label: 'Pays', icon: <IconGlobe /> },
+                { num: '5', label: 'Pays', icon: <IconGlobe /> },
                 { num: '1M+', label: 'Participants', icon: <IconUsers /> },
                 { num: '2000+', label: 'Séminaires', icon: <IconCalendar /> },
                 { num: '2', label: 'Continents', icon: <IconMap /> },
