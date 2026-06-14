@@ -6,7 +6,7 @@ import { useEffect, useState } from 'react';
 const STATS = [
   { num: '5', label: 'Pays' },
   { num: '1M+', label: 'Participants' },
-  { num: '2000+', label: 'Séminaires / an' },
+  { num: '20+', label: 'Séminaires / an' },
   { num: '2', label: 'Continents' },
 ];
 
@@ -276,7 +276,7 @@ export default function HomePage() {
               {[
                 { num: '5', label: 'Pays', icon: <IconGlobe /> },
                 { num: '1M+', label: 'Participants', icon: <IconUsers /> },
-                { num: '2000+', label: 'Séminaires', icon: <IconCalendar /> },
+                { num: '20+', label: 'Séminaires', icon: <IconCalendar /> },
                 { num: '2', label: 'Continents', icon: <IconMap /> },
               ].map(s => (
                 <div key={s.label} style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
@@ -592,7 +592,7 @@ export default function HomePage() {
                 {[
                   { icon: <IconTarget />, title: 'Mission', text: 'Apporter de la vie dans la vie des autres à travers des valeurs, des rêves et l\'action.' },
                   { icon: <IconVision />, title: 'Vision', text: 'Faire de chaque membre un pionnier dans sa propre vie.' },
-                  { icon: <IconImpact />, title: 'Impact', text: '75+ pays, 1M+ participants, 2000+ séminaires par an.' },
+                  { icon: <IconImpact />, title: 'Impact', text: '75+ pays, 1M+ participants, 20+ séminaires par an.' },
                 ].map(item => (
                   <div key={item.title} style={{ display: 'flex', gap: '16px', alignItems: 'flex-start', padding: '20px', background: '#f7f8fa', borderRadius: '12px', border: '1px solid #e0e2e6' }}>
                     <span style={{ color: '#C8102E', flexShrink: 0, marginTop: '2px' }}>{item.icon}</span>
