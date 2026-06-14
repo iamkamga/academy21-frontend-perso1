@@ -259,7 +259,7 @@ export default function HomePage() {
                     WebkitBackdropFilter: 'blur(12px)',
                     transition: 'all 0.3s ease',
                   }}>
-                    Voir les formations
+                    Nos formations
                   </Link>
                 )}
               </div>
