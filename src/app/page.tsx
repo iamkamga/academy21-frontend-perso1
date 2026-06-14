@@ -609,7 +609,7 @@ export default function HomePage() {
                 { num: '75+', label: 'Pays', sub: 'Couverture mondiale' },
                 { num: '1M+', label: 'Participants', sub: 'Communauté active' },
                 { num: '2000+', label: 'Séminaires', sub: 'Par an' },
-                { num: '5', label: 'Continents', sub: 'Présence globale' },
+                { num: '2', label: 'Continents', sub: 'Présence globale' },
               ].map(s => (
                 <div key={s.label} style={{ background: 'white', border: '1px solid #e0e2e6', borderRadius: '12px', padding: '28px', textAlign: 'left', boxShadow: '0 2px 8px rgba(0,0,0,0.03)' }}>
                   <div style={{ fontFamily: "'Montserrat', sans-serif", fontWeight: 900, fontSize: 'clamp(24px,3vw,32px)', color: '#C8102E', marginBottom: '8px', lineHeight: 1 }}>{s.num}</div>
