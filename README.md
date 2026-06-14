@@ -189,6 +189,6 @@ VERCEL_TOKEN (optionnel)
 
 ## Auteur
 
-**Aubierge Ndjiya** — Projet Academy 21 France  
+**Loic Kamga** — Projet Academy 21 France  
 Titre visé : Concepteur Développeur d'Applications (CDA)  
 Entreprise : A.T.O Paris — Période : 20/04/2026 → 15/06/2026
