@@ -277,7 +277,7 @@ export default function HomePage() {
                 { num: '75+', label: 'Pays', icon: <IconGlobe /> },
                 { num: '1M+', label: 'Participants', icon: <IconUsers /> },
                 { num: '2000+', label: 'Séminaires', icon: <IconCalendar /> },
-                { num: '5', label: 'Continents', icon: <IconMap /> },
+                { num: '2', label: 'Continents', icon: <IconMap /> },
               ].map(s => (
                 <div key={s.label} style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
                   <span style={{ 
