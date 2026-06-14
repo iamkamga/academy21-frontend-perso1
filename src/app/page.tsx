@@ -7,7 +7,7 @@ const STATS = [
   { num: '75+', label: 'Pays' },
   { num: '1M+', label: 'Participants' },
   { num: '2000+', label: 'Séminaires / an' },
-  { num: '5', label: 'Continents' },
+  { num: '2', label: 'Continents' },
 ];
 
 const PROGRAMMES = [
@@ -179,7 +179,7 @@ export default function HomePage() {
                 textTransform: 'uppercase', 
                 letterSpacing: '0.12em' 
               }}>
-                Présents sur 5 continents
+                Présents sur 2 continents
               </span>
             </div>
 
