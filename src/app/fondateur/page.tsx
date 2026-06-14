@@ -40,8 +40,8 @@ export default function FondateurPage() {
               {[
                 { label: 'Expérience MLM', val: '15+ ans' },
                 { label: 'Business', val: '20+ ans' },
-                { label: 'Présence', val: '5 continents' },
-                { label: 'Pays', val: '75+' },
+                { label: 'Présence', val: '2' continents' },
+                { label: 'Pays', val: '5' },
               ].map(item => (
                 <div key={item.label} style={{ display: 'flex', justifyContent: 'space-between', padding: '8px 0', borderBottom: '1px solid #f0f1f3', fontSize: '13px' }}>
                   <span style={{ color: '#888' }}>{item.label}</span>
