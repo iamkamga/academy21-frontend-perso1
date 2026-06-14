@@ -4,7 +4,7 @@ import { useAuth } from '@/hooks/useAuth';
 import { useEffect, useState } from 'react';
 
 const STATS = [
-  { num: '75+', label: 'Pays' },
+  { num: '5', label: 'Pays' },
   { num: '1M+', label: 'Participants' },
   { num: '2000+', label: 'Séminaires / an' },
   { num: '2', label: 'Continents' },
