@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { useAuth } from '@/hooks/useAuth';
 
-const BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000';
+
 
 type Stat = { label: string; value: string | number; icon: string; color: string };
 type Member = { id: string; email: string; role: string; createdAt: string; paymentCount: number };
@@ -25,11 +25,9 @@ export default function AdminDashboard() {
 
   useEffect(() => {
     if (user?.role === 'admin') {
-      const token = localStorage.getItem('ato_token');
-      const headers = { Authorization: `Bearer ${token}` };
       Promise.all([
-        fetch(`${BASE_URL}/api/admin/members`, { headers }).then(r => r.json()),
-        fetch(`${BASE_URL}/api/admin/payments`, { headers }).then(r => r.json()),
+        fetch('/api/admin/members').then(r => r.json()),
+        fetch('/api/admin/payments').then(r => r.json()),
       ]).then(([m, p]) => {
         setMembers(Array.isArray(m) ? m : []);
         setPayments(Array.isArray(p) ? p : []);

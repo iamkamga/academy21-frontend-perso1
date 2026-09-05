@@ -54,7 +54,6 @@ export default function CandidaturePage() {
     if (!form.motivation) { setError('Veuillez écrire une lettre de motivation.'); return; }
     setLoading(true);
     try {
-      const BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000';
       const formData = new FormData();
       formData.append('prenom', form.prenom);
       formData.append('nom', form.nom);
@@ -64,7 +63,7 @@ export default function CandidaturePage() {
       formData.append('motivation', form.motivation);
       if (form.cv) formData.append('cv', form.cv);
 
-      const res = await fetch(`${BASE_URL}/api/candidatures`, {
+      const res = await fetch('/api/candidatures', {
         method: 'POST',
         body: formData,
       });

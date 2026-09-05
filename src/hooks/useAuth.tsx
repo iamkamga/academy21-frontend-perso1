@@ -1,4 +1,5 @@
 'use client';
+
 import { createContext, useContext, useEffect, useState, ReactNode } from 'react';
 import { api } from '@/lib/api';
 
@@ -6,14 +7,15 @@ interface User {
   id: string;
   email: string;
   role: string;
+  name?: string | null;
 }
 
 interface AuthContextType {
   user: User | null;
   loading: boolean;
-  login: (email: string, password: string) => Promise<{ id: string; email: string; role: string }>;
-  register: (email: string, password: string) => Promise<void>;
-  logout: () => void;
+  login: (email: string, password: string) => Promise<User>;
+  register: (email: string, password: string, name?: string) => Promise<void>;
+  logout: () => Promise<void>;
   isAdmin: boolean;
 }
 
@@ -23,37 +25,42 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const [user, setUser] = useState<User | null>(null);
   const [loading, setLoading] = useState(true);
 
+  // Au montage, on demande au serveur qui on est (via le cookie de session).
+  // Plus de token à lire dans localStorage.
   useEffect(() => {
-    const token = localStorage.getItem('ato_token');
-    if (token) {
-      api.auth.me()
-        .then(setUser)
-        .catch(() => localStorage.removeItem('ato_token'))
-        .finally(() => setLoading(false));
-    } else {
-      setLoading(false);
-    }
+    api.auth
+      .me()
+      .then((u) => setUser(u))
+      .catch(() => setUser(null))
+      .finally(() => setLoading(false));
   }, []);
 
-  const login = async (email: string, password: string) => {
-    const { token, user } = await api.auth.login(email, password);
-    localStorage.setItem('ato_token', token);
-    setUser(user);
-    return user;
+  const login = async (email: string, password: string): Promise<User> => {
+    const { user: u } = await api.auth.login(email, password);
+    setUser(u);
+    return u;
   };
 
-  const register = async (email: string, password: string, name?: string) => {
-     // L'inscription crée le compte mais ne connecte pas automatiquement l'utilisateur.
-     await api.auth.register(email, password, name);
-  }; 
+  const register = async (email: string, password: string, name?: string): Promise<void> => {
+    // register connecte automatiquement l'utilisateur (cookie posé par le serveur)
+    // mais on reste sur l'ancien comportement front (redirection vers /login)
+    // pour ne pas casser les pages existantes qui redirigent après register.
+    await api.auth.register(email, password, name);
+  };
 
-  const logout = () => {
-    localStorage.removeItem('ato_token');
+  const logout = async (): Promise<void> => {
+    try {
+      await api.auth.logout();
+    } catch {
+      /* on ignore les erreurs, on efface l'état local dans tous les cas */
+    }
     setUser(null);
   };
 
   return (
-    <AuthContext.Provider value={{ user, loading, login, register, logout, isAdmin: user?.role === 'admin' }}>
+    <AuthContext.Provider
+      value={{ user, loading, login, register, logout, isAdmin: user?.role === 'admin' }}
+    >
       {children}
     </AuthContext.Provider>
   );

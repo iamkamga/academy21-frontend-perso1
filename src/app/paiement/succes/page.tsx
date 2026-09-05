@@ -14,18 +14,19 @@ function SuccessContent() {
 
   useEffect(() => {
     if (!user) return;
-    const base = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000';
-    const token = localStorage.getItem('ato_token');
-    const headers = { Authorization: `Bearer ${token}` };
     (async () => {
       try {
         if (sessionId) {
-          const r = await fetch(`${base}/api/payments/stripe/confirm?session_id=${encodeURIComponent(sessionId)}`, { headers });
+          const r = await fetch(`/api/payments/stripe/confirm?session_id=${encodeURIComponent(sessionId)}`);
           const d = await r.json(); if (!r.ok) throw new Error(d.message);
           setStatus(d.status === 'paid' ? 'paid' : 'pending'); return;
         }
         if (paypalPaymentId && paypalOrderId) {
-          const r = await fetch(`${base}/api/payments/paypal/capture`, { method:'POST', headers:{...headers,'Content-Type':'application/json'}, body:JSON.stringify({paymentId:paypalPaymentId,orderId:paypalOrderId}) });
+          const r = await fetch('/api/payments/paypal/capture', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ paymentId: paypalPaymentId, orderId: paypalOrderId }),
+          });
           const d = await r.json(); if (!r.ok) throw new Error(d.message);
           setStatus(d.status === 'COMPLETED' ? 'paid' : 'pending'); return;
         }

@@ -27,21 +27,11 @@ export default function InscriptionPage() {
     setLoading(true);
     setError('');
     try {
-      const BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000';
-      const token = localStorage.getItem('ato_token');
-
-      const res = await fetch(`${BASE_URL}/api/payments/${method === 'stripe' ? 'checkout' : 'paypal/create'}`, {
+      const endpoint = method === 'stripe' ? '/api/payments/checkout' : '/api/payments/paypal/create';
+      const res = await fetch(endpoint, {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${token}`,
-        },
-        body: JSON.stringify({
-          formationId: FORMATION.id,
-          amount: FORMATION.price,
-          title: FORMATION.title,
-          clientInfo: { email: user?.email },
-        }),
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ formationId: FORMATION.id }),
       });
       const data = await res.json();
       if (!res.ok) throw new Error(data.error || 'Erreur paiement');

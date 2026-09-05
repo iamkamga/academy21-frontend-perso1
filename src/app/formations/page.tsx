@@ -25,10 +25,10 @@ export default function FormationsPage() {
     setPaying(f.id);
     try {
       if (method === 'stripe') {
-        const { url } = await api.payments.stripeCheckout(f.id, f.price, f.title);
+        const { url } = await api.payments.stripeCheckout(f.id);
         window.location.href = url;
       } else {
-        const { url } = await api.payments.paypalCreate(f.id, f.price, f.title);
+        const { url } = await api.payments.paypalCreate(f.id);
         window.location.href = url;
       }
     } catch (e: unknown) {

@@ -1,44 +1,51 @@
-const BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000';
-
-function getToken(): string | null {
-  if (typeof window === 'undefined') return null;
-  return localStorage.getItem('ato_token');
-}
-
-function authHeaders(): HeadersInit {
-  const token = getToken();
-  return {
-    'Content-Type': 'application/json',
-    ...(token ? { Authorization: `Bearer ${token}` } : {}),
-  };
-}
+/**
+ * Client HTTP pour les API routes Next.js.
+ *
+ * L'authentification passe par un cookie httpOnly `a21_session` posé par le
+ * serveur au login/register. Comme tout est en même origine, le cookie est
+ * envoyé automatiquement : aucun token à gérer côté client.
+ */
 
 async function request<T>(path: string, options: RequestInit = {}): Promise<T> {
-  const res = await fetch(`${BASE_URL}${path}`, {
+  const res = await fetch(path, {
     ...options,
-    headers: { ...authHeaders(), ...(options.headers || {}) },
+    headers: {
+      'Content-Type': 'application/json',
+      ...(options.headers || {}),
+    },
+    // Explicite : envoie les cookies même origine
+    credentials: 'same-origin',
   });
   if (!res.ok) {
     const err = await res.json().catch(() => ({ message: 'Erreur réseau' }));
     throw new Error(err.message || `Erreur ${res.status}`);
   }
+  // 204 No Content
+  if (res.status === 204) return undefined as T;
   return res.json();
 }
 
-// AUTH
+interface AuthUser {
+  id: string;
+  email: string;
+  role: 'member' | 'admin';
+  name?: string | null;
+}
+
 export const api = {
   auth: {
     register: (email: string, password: string, name?: string) =>
-     request<{ token: string; user: { id: string; email: string; role: string } }>(
-       '/api/auth/register',
-       { method: 'POST', body: JSON.stringify({ email, password, name }) }
-    ),
+      request<{ user: AuthUser }>('/api/auth/register', {
+        method: 'POST',
+        body: JSON.stringify({ email, password, name }),
+      }),
     login: (email: string, password: string) =>
-      request<{ token: string; user: { id: string; email: string; role: string } }>(
-        '/api/auth/login',
-        { method: 'POST', body: JSON.stringify({ email, password }) }
-      ),
-    me: () => request<{ id: string; email: string; role: string }>('/api/auth/me'),
+      request<{ user: AuthUser }>('/api/auth/login', {
+        method: 'POST',
+        body: JSON.stringify({ email, password }),
+      }),
+    logout: () => request<{ ok: boolean }>('/api/auth/logout', { method: 'POST' }),
+    me: () => request<AuthUser>('/api/auth/me'),
   },
 
   formations: {
@@ -48,8 +55,7 @@ export const api = {
       request<Formation>('/api/formations', { method: 'POST', body: JSON.stringify(data) }),
     update: (id: string, data: Partial<Formation>) =>
       request<Formation>(`/api/formations/${id}`, { method: 'PUT', body: JSON.stringify(data) }),
-    delete: (id: string) =>
-      request<void>(`/api/formations/${id}`, { method: 'DELETE' }),
+    delete: (id: string) => request<void>(`/api/formations/${id}`, { method: 'DELETE' }),
   },
 
   events: {
@@ -60,15 +66,15 @@ export const api = {
   },
 
   payments: {
-    stripeCheckout: (formationId: string, amount: number, title: string) =>
-      request<{ url: string }>('/api/payments/checkout', {
+    stripeCheckout: (formationId: string) =>
+      request<{ url: string; paymentId: string }>('/api/payments/checkout', {
         method: 'POST',
-        body: JSON.stringify({ formationId, amount, title }),
+        body: JSON.stringify({ formationId }),
       }),
-    paypalCreate: (formationId: string, amount: number, title: string) =>
-      request<{ url: string; orderId: string }>('/api/payments/paypal/create', {
+    paypalCreate: (formationId: string) =>
+      request<{ url: string; orderId: string; paymentId: string }>('/api/payments/paypal/create', {
         method: 'POST',
-        body: JSON.stringify({ formationId, amount, title }),
+        body: JSON.stringify({ formationId }),
       }),
     myPayments: () => request<Payment[]>('/api/payments/my'),
   },
@@ -106,6 +112,7 @@ export interface Payment {
   formationId?: string;
   amount: number;
   status: string;
+  method?: string;
   createdAt: string;
   formation?: { title: string };
 }
