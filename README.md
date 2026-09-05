@@ -1,194 +1,122 @@
 # Academy 21 France — Frontend
 
-Interface utilisateur développée avec Next.js 16 (App Router) pour la plateforme Academy 21 France.
+Interface utilisateur développée avec **Next.js 16 (App Router) + TypeScript** pour la plateforme Academy 21 France.
 
-## Stack technique
+Le backend (Express + SQLite) est dans `backend/` et se déploie séparément (voir plus bas).
+
+---
+
+## Stack
 
 - **Framework** : Next.js 16 (App Router)
-- **Langage** : TypeScript
-- **Style** : CSS personnalisé
+- **Langage** : TypeScript (strict)
+- **Style** : CSS personnalisé + polices auto-hébergées via `next/font`
 - **Tests E2E** : Playwright
-- **CI/CD** : GitHub Actions
+- **Déploiement** : Vercel (frontend) + hébergeur au choix (backend)
 
 ---
 
-## Structure du projet
+## Installation locale
 
-```
-academy21-frontend/
-├── public/
-│   └── logo-a21-france.png
-├── src/
-│   └── app/
-│       ├── page.tsx                          # Accueil
-│       ├── login/page.tsx                    # Connexion
-│       ├── register/page.tsx                 # Inscription
-│       ├── dashboard/page.tsx                # Dashboard LMS
-│       ├── admin/page.tsx                    # Dashboard Admin
-│       ├── formations/
-│       │   ├── page.tsx                      # Liste formations
-│       │   └── ia-marketing-reseau/
-│       │       ├── page.tsx                  # Détail formation
-│       │       └── inscription/page.tsx      # Paiement
-│       ├── rejoindre-academie/
-│       │   ├── page.tsx                      # Programmes
-│       │   ├── a21-training/page.tsx
-│       │   ├── leadercamp/page.tsx
-│       │   └── business-show/page.tsx
-│       ├── candidature/page.tsx              # Formulaire candidature
-│       ├── nos-valeurs/page.tsx              # 9 valeurs A21
-│       ├── temoignages/page.tsx              # Témoignages
-│       └── paiement/
-│           ├── succes/page.tsx
-│           └── echec/page.tsx
-├── tests/
-│   ├── enrollment.spec.ts                    # Tests E2E inscription
-│   └── e2e.spec.ts                           # Tests E2E parcours complet
-├── playwright.config.ts
-└── .github/
-    └── workflows/
-        └── ci.yml
-```
-
----
-
-## Installation
-
-### Prérequis
-
-- Node.js >= 18
-- npm >= 9
-
-### 1. Cloner le dépôt
-
-```bash
-git clone https://github.com/Aubierg/academy21-frontend.git
-cd academy21-frontend
-```
-
-### 2. Installer les dépendances
+Prérequis : Node.js ≥ 18, npm ≥ 9.
 
 ```bash
 npm install
-```
-
-### 3. Configurer les variables d'environnement
-
-Créer un fichier `.env.local` :
-
-```env
-NEXT_PUBLIC_API_URL=http://localhost:5000
-```
-
-### 4. Lancer le serveur de développement
-
-```bash
+cp .env.local.example .env.local
+# éditer .env.local si besoin
 npm run dev
 ```
 
-L'application est disponible sur [http://localhost:3000](http://localhost:3000)
+Application disponible sur http://localhost:3000
+
+Pour lancer le backend en parallèle :
+
+```bash
+cd backend
+npm install
+npm run seed
+npm run dev   # écoute sur http://localhost:5000
+```
 
 ---
 
-## Pages disponibles
+## Variables d'environnement
 
-| Page | Route | Description |
-|------|-------|-------------|
-| Accueil | `/` | Page principale avec hero, programmes, stats |
-| Connexion | `/login` | Formulaire de connexion |
-| Inscription | `/register` | Création de compte |
-| Formations | `/formations` | Liste des formations |
-| Formation IA | `/formations/ia-marketing-reseau` | Détail formation (490€) |
-| Paiement | `/formations/ia-marketing-reseau/inscription` | Stripe + PayPal |
-| Dashboard | `/dashboard` | LMS : modules, quiz, certificat |
-| Admin | `/admin` | Gestion membres, paiements, candidatures |
-| Rejoindre | `/rejoindre-academie` | 3 programmes + CTA candidature |
-| Candidature | `/candidature` | Formulaire 2 étapes |
-| Nos valeurs | `/nos-valeurs` | 9 valeurs Academy 21 |
-| Témoignages | `/temoignages` | Vidéos + témoignages écrits |
-| Succès | `/paiement/succes` | Confirmation paiement |
-| Échec | `/paiement/echec` | Erreur paiement |
+| Variable                    | Rôle                                     | Exemple dev              |
+| --------------------------- | ---------------------------------------- | ------------------------ |
+| `NEXT_PUBLIC_API_URL`       | URL du backend, appelée depuis le client | `http://localhost:5000`  |
+| `NEXT_PUBLIC_FRONTEND_URL`  | URL publique du frontend (CORS, retours) | `http://localhost:3000`  |
+
+Sur Vercel, ces deux variables se définissent dans **Project Settings → Environment Variables** (Production + Preview + Development).
 
 ---
 
-## Dashboard LMS
+## Déploiement Vercel
 
-Le dashboard membre intègre un système de formation complet :
+1. **Créer le projet** sur https://vercel.com en important le dépôt GitHub.
+2. **Root Directory** : la racine du dépôt (le `package.json` frontend est au top).
+3. **Framework Preset** : Next.js (auto-détecté).
+4. **Environment Variables** :
+   - `NEXT_PUBLIC_API_URL` = URL publique de ton backend déployé
+   - `NEXT_PUBLIC_FRONTEND_URL` = URL Vercel de la prod (ex. `https://academy21.vercel.app`)
+5. **Deploy**. Vercel construit et déploie automatiquement à chaque push sur `main` (prod) et sur chaque PR (preview).
 
-- **5 modules** avec vidéo YouTube, contenus pédagogiques et TP
-- **Quiz** de 3 questions par module
-- **Progression** sauvegardée dans `localStorage`
-- **Certificat** de complétion généré automatiquement quand tous les modules sont terminés
+Le fichier `vercel.json` fixe la région `cdg1` (Paris) et ajoute quelques en-têtes de sécurité de base.
+
+---
+
+## Déploiement du backend
+
+Le backend utilise `better-sqlite3` (module natif, filesystem persistant requis) : **il ne peut pas tourner sur Vercel Functions**. Options recommandées :
+
+- **Render** ou **Railway** : les plus simples, disque persistant pour SQLite inclus.
+- **Fly.io** : un peu plus technique, volumes persistants.
+- **VPS** (Hetzner, OVH, Scaleway) : contrôle total, à toi de gérer.
+
+Variables à définir sur l'hébergeur backend :
+
+- `PORT` (souvent injecté par la plateforme)
+- `FRONTEND_URL` = URL Vercel du frontend (indispensable pour CORS)
+- `JWT_SECRET` = chaîne aléatoire longue
+- `ADMIN_EMAIL`, `ADMIN_PASSWORD` = compte admin initial
+- `STRIPE_SECRET_KEY`, `STRIPE_WEBHOOK_SECRET` (si paiements activés)
+- `DATABASE_FILE` = chemin sur le disque persistant
+
+⚠️ **Après déploiement du backend, mets à jour `FRONTEND_URL` avec l'URL Vercel** pour que CORS accepte les requêtes.
 
 ---
 
 ## Tests E2E (Playwright)
 
 ```bash
-# Installer les navigateurs Playwright
 npx playwright install
-
-# Lancer tous les tests E2E
-npx playwright test
-
-# Mode interactif (UI)
-npx playwright test --ui
-
-# Un seul fichier
-npx playwright test tests/enrollment.spec.ts
-npx playwright test tests/e2e.spec.ts
-
-# Rapport HTML
-npx playwright show-report
+npx playwright test          # tous les tests
+npx playwright test --ui     # mode interactif
 ```
 
-**Scénarios testés :**
-- Page d'accueil (hero, programmes)
-- Authentification (login, erreurs, redirection)
-- Rejoindre l'académie (CTA, navigation)
-- Candidature (formulaire, validation)
-- Flux inscription formation (étapes, paiement)
-- Nos valeurs (contenu)
+Les tests supposent que le frontend tourne en local (`npm run start`). Certains scénarios nécessitent aussi le backend démarré.
 
 ---
 
-## Build de production
-
-```bash
-npm run build
-npm start
-```
-
----
-
-## Déploiement (Vercel)
-
-1. Connecter le dépôt GitHub sur [vercel.com](https://vercel.com)
-2. Ajouter la variable d'environnement `NEXT_PUBLIC_API_URL` pointant vers l'API backend
-3. Déploiement automatique à chaque push sur `main`
-
----
-
-## CI/CD — GitHub Actions
-
-Le pipeline s'exécute à chaque push sur `main` :
-
-1. **Install** — `npm install`
-2. **Build** — `npm run build`
-3. **Tests E2E** — `npx playwright test`
-4. **Deploy** — Déploiement vers Vercel
-
-Secrets GitHub à configurer :
+## Structure
 
 ```
-NEXT_PUBLIC_API_URL
-VERCEL_TOKEN (optionnel)
+academy21-frontend/
+├── src/
+│   ├── app/                  # Pages App Router
+│   ├── components/           # Navbar, Footer
+│   ├── hooks/useAuth.tsx     # Contexte d'authentification
+│   └── lib/api.ts            # Client HTTP (utilise NEXT_PUBLIC_API_URL)
+├── public/                   # Images statiques
+├── backend/                  # API Express + SQLite (déployée séparément)
+├── tests/                    # Specs Playwright
+├── .github/workflows/ci.yml  # Vérification build sur PR
+├── vercel.json               # Config Vercel (région + headers)
+└── next.config.js
 ```
 
 ---
 
 ## Auteur
 
-**Loic Kamga** — Projet Academy 21 France  
-Titre visé : Concepteur Développeur d'Applications (CDA)  
-Entreprise : A.T.O Paris — Période : 20/04/2026 → 15/06/2026
+Projet Academy 21 France — Titre visé : Concepteur Développeur d'Applications (CDA).
