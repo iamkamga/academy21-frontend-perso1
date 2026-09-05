@@ -1,11 +1,38 @@
 'use client';
 import Link from 'next/link';
 import { useSearchParams } from 'next/navigation';
-import { Suspense } from 'react';
+import { Suspense, useEffect, useState } from 'react';
+import { useAuth } from '@/hooks/useAuth';
 
 function SuccessContent() {
   const params = useSearchParams();
   const sessionId = params.get('session_id');
+  const paypalPaymentId = params.get('paypal_payment_id');
+  const paypalOrderId = params.get('token') || params.get('paypal_order_id');
+  const { user } = useAuth();
+  const [status, setStatus] = useState<'checking'|'paid'|'pending'|'error'>('checking');
+
+  useEffect(() => {
+    if (!user) return;
+    const base = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000';
+    const token = localStorage.getItem('ato_token');
+    const headers = { Authorization: `Bearer ${token}` };
+    (async () => {
+      try {
+        if (sessionId) {
+          const r = await fetch(`${base}/api/payments/stripe/confirm?session_id=${encodeURIComponent(sessionId)}`, { headers });
+          const d = await r.json(); if (!r.ok) throw new Error(d.message);
+          setStatus(d.status === 'paid' ? 'paid' : 'pending'); return;
+        }
+        if (paypalPaymentId && paypalOrderId) {
+          const r = await fetch(`${base}/api/payments/paypal/capture`, { method:'POST', headers:{...headers,'Content-Type':'application/json'}, body:JSON.stringify({paymentId:paypalPaymentId,orderId:paypalOrderId}) });
+          const d = await r.json(); if (!r.ok) throw new Error(d.message);
+          setStatus(d.status === 'COMPLETED' ? 'paid' : 'pending'); return;
+        }
+        setStatus('pending');
+      } catch { setStatus('error'); }
+    })();
+  }, [user, sessionId, paypalPaymentId, paypalOrderId]);
 
   return (
     <div style={{
@@ -34,7 +61,7 @@ function SuccessContent() {
           fontFamily: 'Montserrat,sans-serif', fontWeight: 700, fontSize: '11px',
           padding: '4px 14px', borderRadius: '20px', letterSpacing: '0.1em',
           textTransform: 'uppercase', marginBottom: '16px',
-        }}>Paiement confirmé</div>
+        }}>{status === 'paid' ? 'Paiement confirmé' : status === 'checking' ? 'Vérification du paiement' : status === 'error' ? 'Vérification impossible' : 'Paiement en attente'}</div>
 
         <h1 style={{
           fontFamily: 'Montserrat,sans-serif', fontWeight: 900,
@@ -45,7 +72,7 @@ function SuccessContent() {
         </h1>
 
         <p style={{ color: '#777', fontSize: '15px', lineHeight: 1.7, marginBottom: '28px' }}>
-          Votre paiement a bien été reçu. Un email de confirmation vous a été envoyé.
+          {status === 'paid' ? 'Votre paiement a bien été reçu. Votre inscription est maintenant enregistrée.' : status === 'checking' ? 'Nous vérifions votre paiement auprès du prestataire sécurisé.' : status === 'pending' ? 'Le paiement est en cours de confirmation. Votre accès sera activé dès confirmation.' : 'Nous n’avons pas pu vérifier automatiquement le paiement. Contactez-nous si vous avez été débité.'}
         </p>
 
         {/* Étapes */}
