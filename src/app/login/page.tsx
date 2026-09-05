@@ -17,7 +17,7 @@ function LoginForm() {
   const registered = searchParams.get('registered') === '1';
 
   useEffect(() => {
-    if (!authLoading && user) router.push(redirect);
+    if (!authLoading && user) router.push(user?.role === 'admin' ? '/admin' : redirect);
   }, [user, authLoading, router, redirect]);
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -25,8 +25,9 @@ function LoginForm() {
     setError('');
     setLoading(true);
     try {
-      await login(email, password);
-      router.push(redirect);
+      // Le backend renvoie le rôle; le provider met ensuite user à jour.
+      const loggedUser = await login(email, password);
+      router.push(loggedUser.role === 'admin' ? '/admin' : redirect);
     } catch (err: unknown) {
       setError(err instanceof Error ? err.message : 'Identifiants incorrects');
     } finally {
