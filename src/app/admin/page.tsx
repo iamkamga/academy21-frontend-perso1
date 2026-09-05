@@ -6,7 +6,7 @@ import { useAuth } from '@/hooks/useAuth';
 const BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000';
 
 type Stat = { label: string; value: string | number; icon: string; color: string };
-type Member = { id: string; email: string; role: string; createdAt: string; payments: any[] };
+type Member = { id: string; email: string; role: string; createdAt: string; paymentCount: number };
 type Payment = { id: string; amount: number; status: string; method: string; createdAt: string; user: { email: string }; formation?: { title: string } };
 
 export default function AdminDashboard() {
@@ -46,7 +46,7 @@ export default function AdminDashboard() {
 
   if (!user || user.role !== 'admin') return null;
 
-  const totalRevenue = payments.reduce((s, p) => s + (p.amount || 0), 0);
+  const totalRevenue = payments.filter(p => p.status === 'paid').reduce((s, p) => s + (p.amount || 0), 0);
   const STATS: Stat[] = [
     { label: 'Membres total', value: members.length, icon: '👥', color: '#1a6fc4' },
     { label: 'Paiements', value: payments.length, icon: '💳', color: '#28a745' },
@@ -132,7 +132,7 @@ export default function AdminDashboard() {
                     <div style={{ fontSize: '12px', color: '#aaa' }}>{p.formation?.title || 'Formation'} · {new Date(p.createdAt).toLocaleDateString('fr-FR')}</div>
                   </div>
                   <div style={{ display: 'flex', gap: '10px', alignItems: 'center' }}>
-                    <span style={{ background: '#e8f5e9', color: '#2e7d32', padding: '3px 10px', borderRadius: '20px', fontSize: '11px', fontFamily: 'Montserrat,sans-serif', fontWeight: 700 }}>✓ Payé</span>
+                    <span style={{ background: p.status === 'paid' ? '#e8f5e9' : '#fff8e1', color: p.status === 'paid' ? '#2e7d32' : '#856404', padding: '3px 10px', borderRadius: '20px', fontSize: '11px', fontFamily: 'Montserrat,sans-serif', fontWeight: 700 }}>{p.status === 'paid' ? '✓ Payé' : '⏳ En attente'}</span>
                     <span style={{ fontFamily: 'Montserrat,sans-serif', fontWeight: 900, fontSize: '16px', color: '#f0a500' }}>{p.amount} €</span>
                   </div>
                 </div>
@@ -190,7 +190,7 @@ export default function AdminDashboard() {
                     <div>
                       <div style={{ fontFamily: 'Montserrat,sans-serif', fontWeight: 700, fontSize: '14px', color: '#1a1a1a' }}>{m.email}</div>
                       <div style={{ fontSize: '12px', color: '#aaa' }}>
-                        Inscrit le {new Date(m.createdAt).toLocaleDateString('fr-FR')} · {m.payments?.length || 0} paiement(s)
+                        Inscrit le {new Date(m.createdAt).toLocaleDateString('fr-FR')} · {m.paymentCount || 0} paiement(s) confirmé(s)
                       </div>
                     </div>
                   </div>
@@ -231,7 +231,7 @@ export default function AdminDashboard() {
                     </div>
                   </div>
                   <div style={{ display: 'flex', gap: '12px', alignItems: 'center' }}>
-                    <span style={{ background: '#e8f5e9', color: '#2e7d32', border: '1px solid #c8e6c9', padding: '4px 12px', borderRadius: '20px', fontSize: '11px', fontFamily: 'Montserrat,sans-serif', fontWeight: 700 }}>✓ Payé</span>
+                    <span style={{ background: p.status === 'paid' ? '#e8f5e9' : '#fff8e1', color: p.status === 'paid' ? '#2e7d32' : '#856404', border: `1px solid ${p.status === 'paid' ? '#c8e6c9' : '#ffe082'}`, padding: '4px 12px', borderRadius: '20px', fontSize: '11px', fontFamily: 'Montserrat,sans-serif', fontWeight: 700 }}>{p.status === 'paid' ? '✓ Payé' : '⏳ En attente'}</span>
                     <span style={{ fontFamily: 'Montserrat,sans-serif', fontWeight: 900, fontSize: '18px', color: '#f0a500' }}>{p.amount} €</span>
                   </div>
                 </div>
