@@ -11,8 +11,10 @@
  * si absents.
  */
 
-import 'dotenv/config';
+import { config } from 'dotenv';
 import { neon } from '@neondatabase/serverless';
+
+config({ path: '.env.local' });
 import bcrypt from 'bcryptjs';
 import crypto from 'node:crypto';
 
