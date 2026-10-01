@@ -3,6 +3,7 @@ import Link from 'next/link';
 import { useAuth } from '@/hooks/useAuth';
 import { useEffect, useState } from 'react';
 import { TEMOIGNAGES, initiales } from '@/lib/temoignages';
+import InstitutionalProfile from '@/components/InstitutionalProfile';
 
 const STATS = [
   { num: '5', label: 'Pays' },
@@ -419,6 +420,9 @@ export default function HomePage() {
           </div>
         </div>
       </section>
+
+      {/* ══ QUI SOMMES-NOUS (profil institutionnel complet) ══ */}
+      <InstitutionalProfile embedded />
 
       {/* ══ VALEURS ══ */}
       <section style={{ padding: 'clamp(60px,8vw,100px) 0', background: '#f6f7f9' }}>
