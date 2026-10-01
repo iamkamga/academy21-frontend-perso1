@@ -17,7 +17,6 @@ const NAV_ITEMS = [
   {
     label: 'Programmes',
     children: [
-      { label: 'IA Appliquée', href: '/formations' },
       { label: 'Événements à Venir', href: '/evenements' },
       { label: 'Bachelors', href: '/programmes/bachelors' },
       { label: 'Mastères', href: '/programmes/masteres' },
@@ -29,7 +28,6 @@ const NAV_ITEMS = [
     label: 'Communauté',
     children: [
       { label: 'Témoignages', href: '/temoignages' },
-      { label: "Rejoindre l'Académie", href: '/rejoindre-academie' },
       { label: 'Mon Programme', href: '/dashboard' },
     ],
   },

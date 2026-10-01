@@ -2,6 +2,7 @@
 import Link from 'next/link';
 import { useAuth } from '@/hooks/useAuth';
 import { useEffect, useState } from 'react';
+import { TEMOIGNAGES, initiales } from '@/lib/temoignages';
 
 const STATS = [
   { num: '5', label: 'Pays' },
@@ -76,18 +77,6 @@ const IconVision = () => (
 const IconImpact = () => (
   <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
     <circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
-  </svg>
-);
-
-const IconQuote = () => (
-  <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round">
-    <path d="M3 21c3 0 7-1 7-8V5c0-1.25-.756-2.017-2-2H4c-1.25 0-2 .75-2 1.972V11c0 1.25.75 2 2 2 1 0 1 0 1 1v1c0 1-1 2-2 2s-1 .008-1 1.031V21M15 21c3 0 7-1 7-8V5c0-1.25-.757-2.017-2-2h-4c-1.25 0-2 .75-2 1.972V11c0 1.25.75 2 2 2h.75c0 2.25.25 4-2.75 4v3c0 1 0 1 1 1h2.75z"/>
-  </svg>
-);
-
-const IconStar = () => (
-  <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" stroke="none">
-    <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
   </svg>
 );
 
@@ -479,60 +468,66 @@ export default function HomePage() {
       <section style={{ padding: 'clamp(60px,8vw,100px) 0', background: 'white' }}>
         <div className="container">
           <div style={{ textAlign: 'center', marginBottom: '48px' }}>
-            <span style={{ display: 'inline-block', background: '#e8f5e9', color: '#28a745', fontFamily: "'Montserrat', sans-serif", fontWeight: 700, fontSize: '11px', padding: '4px 16px', borderRadius: '100px', textTransform: 'uppercase', letterSpacing: '0.15em', marginBottom: '12px' }}>
-              Témoignages
-            </span>
-            <h2 style={{ fontFamily: "'Montserrat', sans-serif", fontWeight: 900, fontSize: 'clamp(28px,4vw,48px)', color: '#1a1a1a' }}>
-              Ils ont <span style={{ color: '#28a745' }}>transformé</span> leur vie
+            <div style={{ display: 'inline-flex', alignItems: 'center', gap: '12px', marginBottom: '14px' }}>
+              <span style={{ width: '28px', height: '1px', background: '#a8865a' }} />
+              <span style={{ color: '#a8865a', fontFamily: "'Montserrat', sans-serif", fontWeight: 700, fontSize: '11px', textTransform: 'uppercase', letterSpacing: '0.22em' }}>Témoignages</span>
+              <span style={{ width: '28px', height: '1px', background: '#a8865a' }} />
+            </div>
+            <h2 style={{ fontFamily: "'Montserrat', sans-serif", fontWeight: 900, fontSize: 'clamp(28px,4vw,48px)', color: '#13213a', marginBottom: '12px' }}>
+              La parole à notre <span style={{ color: '#C8102E' }}>communauté</span>
             </h2>
+            <p style={{ color: '#6b7280', fontSize: '15px', lineHeight: 1.7, maxWidth: '560px', margin: '0 auto' }}>
+              Des parcours singuliers, une même exigence : apprendre, progresser et transmettre.
+            </p>
           </div>
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(320px, 1fr))', gap: '24px', marginBottom: '32px' }}>
-            {[
-              { nom: 'Marie K.', pays: 'France', grade: 'Executive Ambassador', texte: 'Academy 21 a complètement transformé ma vision des affaires. En moins d\'un an, j\'ai atteint ma liberté financière.' },
-              { nom: 'Jean-Pierre M.', pays: 'Congo', grade: 'Senior Ambassador', texte: 'Les formations A21 m\'ont donné les outils pour transformer ma vie et celle de ma famille. Le système fonctionne.' },
-              { nom: 'Aisha D.', pays: 'Sénégal', grade: 'Ambassador', texte: 'Ce qui m\'a le plus marquée c\'est la communauté. Des personnes bienveillantes qui s\'entraident pour réussir.' },
-            ].map((t, i) => (
-              <div key={i} style={{ background: '#f7f8fa', borderRadius: '12px', padding: '32px', border: '1px solid #e0e2e6', position: 'relative' }}>
-                <div style={{ position: 'absolute', top: '24px', right: '24px', color: 'rgba(200,16,46,0.08)' }}>
-                  <IconQuote />
-                </div>
-                <div style={{ display: 'flex', gap: '4px', marginBottom: '20px' }}>
-                  {[1,2,3,4,5].map(star => (
-                    <span key={star} style={{ color: '#f0a500' }}><IconStar /></span>
+
+          {(() => {
+            const featured = TEMOIGNAGES.find(t => t.featured) ?? TEMOIGNAGES[0];
+            const others = TEMOIGNAGES.filter(t => t !== featured).slice(0, 2);
+            return (
+              <div className="temo-home-grid" style={{ display: 'grid', gridTemplateColumns: '1.35fr 1fr', gap: '20px', marginBottom: '36px' }}>
+                {/* Témoignage principal */}
+                <figure style={{ margin: 0, background: 'linear-gradient(135deg, #0e1a2e 0%, #1b2c48 100%)', borderRadius: '16px', padding: 'clamp(28px,4vw,48px)', position: 'relative', overflow: 'hidden', display: 'flex', flexDirection: 'column', justifyContent: 'space-between', minHeight: '340px' }}>
+                  <div aria-hidden="true" style={{ position: 'absolute', top: '-30px', right: '20px', fontFamily: 'Georgia, serif', fontSize: '220px', lineHeight: 1, color: 'rgba(205,180,140,0.12)' }}>&ldquo;</div>
+                  <blockquote style={{ margin: 0, position: 'relative', fontFamily: "Georgia, 'Times New Roman', serif", fontStyle: 'italic', fontSize: 'clamp(19px,2.3vw,26px)', lineHeight: 1.55, color: 'white' }}>
+                    &ldquo;{featured.texte.fr}&rdquo;
+                  </blockquote>
+                  <figcaption style={{ display: 'flex', alignItems: 'center', gap: '14px', marginTop: '32px', position: 'relative' }}>
+                    <div style={{ width: '52px', height: '52px', borderRadius: '50%', border: '1.5px solid #cdb48c', display: 'flex', alignItems: 'center', justifyContent: 'center', fontFamily: 'Georgia, serif', fontSize: '18px', color: '#cdb48c', flexShrink: 0 }}>{initiales(featured.nom)}</div>
+                    <div>
+                      <div style={{ fontFamily: "'Montserrat', sans-serif", fontWeight: 800, fontSize: '15px', color: 'white' }}>{featured.nom}</div>
+                      <div style={{ fontSize: '13px', color: 'rgba(255,255,255,0.6)' }}>{featured.drapeau} {featured.pays} · {featured.role}</div>
+                    </div>
+                  </figcaption>
+                </figure>
+
+                {/* Témoignages secondaires */}
+                <div style={{ display: 'grid', gridTemplateRows: '1fr 1fr', gap: '20px' }}>
+                  {others.map(t => (
+                    <figure key={t.nom} style={{ margin: 0, background: '#f6f7f9', border: '1px solid #e3e6eb', borderRadius: '16px', padding: '26px 28px', position: 'relative', display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
+                      <span style={{ position: 'absolute', top: '-1px', left: '28px', width: '36px', height: '3px', background: '#C8102E', borderRadius: '0 0 2px 2px' }} />
+                      <blockquote style={{ margin: 0, fontFamily: "Georgia, 'Times New Roman', serif", fontStyle: 'italic', fontSize: '16px', lineHeight: 1.65, color: '#2b3445' }}>&ldquo;{t.texte.fr}&rdquo;</blockquote>
+                      <figcaption style={{ display: 'flex', alignItems: 'center', gap: '12px', marginTop: '18px' }}>
+                        <div style={{ width: '40px', height: '40px', borderRadius: '50%', background: '#13213a', display: 'flex', alignItems: 'center', justifyContent: 'center', fontFamily: 'Georgia, serif', fontSize: '14px', color: '#cdb48c', flexShrink: 0 }}>{initiales(t.nom)}</div>
+                        <div>
+                          <div style={{ fontFamily: "'Montserrat', sans-serif", fontWeight: 800, fontSize: '14px', color: '#13213a' }}>{t.nom}</div>
+                          <div style={{ fontSize: '12.5px', color: '#6b7280' }}>{t.drapeau} {t.pays} · {t.role}</div>
+                        </div>
+                      </figcaption>
+                    </figure>
                   ))}
                 </div>
-                <p style={{ color: '#444', fontSize: '15px', lineHeight: 1.75, marginBottom: '24px', fontStyle: 'italic', fontFamily: "'Inter', sans-serif" }}>&ldquo;{t.texte}&rdquo;</p>
-                <div style={{ display: 'flex', alignItems: 'center', gap: '14px' }}>
-                  <div style={{ 
-                    width: '44px', 
-                    height: '44px', 
-                    borderRadius: '50%', 
-                    background: '#1a1a1a', 
-                    display: 'flex', 
-                    alignItems: 'center', 
-                    justifyContent: 'center', 
-                    fontFamily: "'Montserrat', sans-serif", 
-                    fontWeight: 700, 
-                    fontSize: '15px', 
-                    color: 'white', 
-                    flexShrink: 0 
-                  }}>
-                    {t.nom[0]}
-                  </div>
-                  <div>
-                    <div style={{ fontFamily: "'Montserrat', sans-serif", fontWeight: 800, fontSize: '14px', color: '#1a1a1a', marginBottom: '2px' }}>{t.nom}</div>
-                    <div style={{ fontSize: '12px', color: '#888', fontFamily: "'Inter', sans-serif" }}>{t.pays} · {t.grade}</div>
-                  </div>
-                </div>
               </div>
-            ))}
-          </div>
+            );
+          })()}
+
           <div style={{ textAlign: 'center' }}>
-            <Link href="/temoignages" style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', color: '#28a745', fontFamily: "'Montserrat', sans-serif", fontWeight: 700, fontSize: '13px', textTransform: 'uppercase', letterSpacing: '0.08em', padding: '12px 28px', border: '2px solid #28a745', borderRadius: '8px', textDecoration: 'none' }}>
+            <Link href="/temoignages" style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', color: '#13213a', fontFamily: "'Montserrat', sans-serif", fontWeight: 700, fontSize: '13px', textTransform: 'uppercase', letterSpacing: '0.08em', padding: '12px 28px', border: '1.5px solid #13213a', borderRadius: '8px', textDecoration: 'none' }}>
               Voir tous les témoignages →
             </Link>
           </div>
         </div>
+        <style>{`@media (max-width: 860px) { .temo-home-grid { grid-template-columns: 1fr !important; } }`}</style>
       </section>
 
       {/* ══ CTA FINAL ══ */}
