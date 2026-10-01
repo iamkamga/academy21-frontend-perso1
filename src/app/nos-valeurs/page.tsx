@@ -7,13 +7,13 @@ const TRANSLATIONS = {
     back: '← Retour',
     tag: 'Notre ADN',
     title: 'Nos Valeurs',
-    subtitle: "Academy Twenty One place l'être humain au centre de tout. Voici les valeurs fondamentales qui guident chaque membre de notre communauté.",
+    subtitle: "Academy Twenty One place l'être humain au cœur de son projet éducatif. Neuf valeurs fondent notre pédagogie et orientent l'engagement de chaque membre de notre communauté.",
     quote: `\"L'argent est important, la liberté financière aussi. Mais c'est l'être humain qui donne de la valeur à l'argent, et non l'inverse.\"`,
     author: "— Dr Raoul Ruben Njionou, Fondateur d'Academy Twenty One",
     mission: 'Notre Mission',
-    missionText: "Nous sommes un système qui construit des hommes et des femmes ! Nous renouvelons les esprits parce que nous avons tous une mission en nous. Nous vous poussons à rêver, nous vous guidons dans l'action, et le succès est inévitable.",
+    missionText: "Former des femmes et des hommes capables de révéler leur potentiel et de le traduire en action. Par la transmission de méthodes, de valeurs et d'un état d'esprit entrepreneurial, nous accompagnons chacun de l'ambition à la réalisation.",
     vision: 'Notre Vision',
-    visionText: "Nous avons parcouru un long chemin et nous sommes restés fermes grâce aux principes qui ont servi d'ancre tout au long de notre processus. La vision portée par notre système n'est pas une utopie, elle grandit avec le temps.",
+    visionText: "Bâtir, sur des principes stables qui ont guidé chaque étape de notre développement, une institution de référence en leadership et en entrepreneuriat. Une vision qui n'a rien d'une utopie : elle se construit et s'élargit avec le temps.",
     cta: "Rejoindre l'Académie",
     ctaDesc: "Partagez ces valeurs ? Rejoignez une communauté internationale d'entrepreneurs.",
     postuler: 'Déposer ma candidature →',
@@ -22,29 +22,34 @@ const TRANSLATIONS = {
     back: '← Back',
     tag: 'Our DNA',
     title: 'Our Values',
-    subtitle: 'Academy Twenty One places the human being at the center of everything. Here are the core values that guide every member of our community.',
+    subtitle: 'Academy Twenty One places the human being at the heart of its educational project. Nine values underpin our teaching and guide the commitment of every member of our community.',
     quote: '"Money is important, financial freedom too. However, it is the human being who gives value to money and not the other way round."',
     author: '— Dr Raoul Ruben Njionou, Founder of Academy Twenty One',
     mission: 'Our Mission',
-    missionText: 'We are a system that builds people! We renew minds because we all have a mission invested in us. We push you to dream, we see you through action, and success is inevitable in the end.',
+    missionText: 'To educate women and men able to reveal their potential and turn it into action. By passing on methods, values and an entrepreneurial mindset, we support each person from ambition to achievement.',
     vision: 'Our Vision',
-    visionText: "We've come a long way and we stood firm thanks to the principles that served as an anchor throughout our process. The vision born by our system is not a utopia, rather it grows with time.",
+    visionText: "To build, on the stable principles that have guided every stage of our development, a leading institution in leadership and entrepreneurship. A vision that is no utopia: it is built and broadened over time.",
     cta: 'Join the Academy',
     ctaDesc: 'Share these values? Join an international community of entrepreneurs.',
     postuler: 'Submit my application →',
   },
 };
 
+const NAVY = '#13213a';
+const BRONZE = '#a8865a';
+const RED = '#C8102E';
+const ROMAN = ['I', 'II', 'III', 'IV', 'V', 'VI', 'VII', 'VIII', 'IX'];
+
 const VALUES = [
-  { name: { fr: "Foi", en: "Faith" }, desc: { fr: "La foi est le fondement de tout ce que nous accomplissons. Elle nous permet de croire en nos rêves même quand le chemin semble difficile.", en: "Faith is the foundation of everything we accomplish. It allows us to believe in our dreams even when the path seems difficult." }, color: "#C8102E" },
-  { name: { fr: "Charité", en: "Charity" }, desc: { fr: "Plus nous donnons, plus nous recevons. La générosité est au cœur de notre communauté et de notre réussite collective.", en: "The more we give, the more we receive. Generosity is at the heart of our community and our collective success." }, color: "#1a6fc4" },
-  { name: { fr: "Persévérance", en: "Perseverance" }, desc: { fr: "Le succès n'est pas immédiat. Nous croyons fermement que la persévérance face aux obstacles est la clé de tout accomplissement durable.", en: "Success is not immediate. We firmly believe that perseverance in the face of obstacles is the key to any lasting achievement." }, color: "#f0a500" },
-  { name: { fr: "Attitude Positive", en: "Positive Attitude" }, desc: { fr: "Notre état d'esprit détermine nos résultats. Une attitude positive transforme les défis en opportunités et attire le succès.", en: "Our mindset determines our results. A positive attitude transforms challenges into opportunities and attracts success." }, color: "#28a745" },
-  { name: { fr: "Ambition", en: "Ambition" }, desc: { fr: "Viser grand est le premier pas vers la réalisation de ses rêves. Nous encourageons chaque membre à repousser ses limites.", en: "Aiming high is the first step towards achieving your dreams. We encourage every member to push their limits." }, color: "#7b2d8b" },
-  { name: { fr: "Ne Jamais Abandonner", en: "Never Give Up" }, desc: { fr: "Chaque chute est une leçon. L'échec n'est pas la fin — c'est une étape vers la réussite. Nous ne baissons jamais les bras.", en: "Every fall is a lesson. Failure is not the end — it's a step towards success. We never give up." }, color: "#C8102E" },
-  { name: { fr: "Style de Vie", en: "Lifestyle" }, desc: { fr: "L'excellence se reflète dans chaque aspect de notre vie. Nous cultivons un style de vie qui inspire et attire la prospérité.", en: "Excellence is reflected in every aspect of our life. We cultivate a lifestyle that inspires and attracts prosperity." }, color: "#1a6fc4" },
-  { name: { fr: "Loyauté", en: "Loyalty" }, desc: { fr: "La loyauté envers notre communauté, nos partenaires et nos valeurs est ce qui nous rend forts et durables.", en: "Loyalty to our community, our partners and our values is what makes us strong and lasting." }, color: "#f0a500" },
-  { name: { fr: "Rigueur", en: "Rigor" }, desc: { fr: "La discipline et la rigueur dans l'action quotidienne sont les garantes de résultats exceptionnels sur le long terme.", en: "Discipline and rigor in daily action are the guarantors of exceptional results in the long term." }, color: "#28a745" },
+  { name: { fr: "Foi", en: "Faith" }, desc: { fr: "La foi désigne la confiance en sa vocation et en sa capacité à progresser. Elle constitue le socle de l'engagement, en particulier lorsque les résultats tardent à se manifester.", en: "Faith is confidence in one's calling and in one's ability to grow. It is the foundation of commitment, especially when results are slow to appear." } },
+  { name: { fr: "Charité", en: "Charity" }, desc: { fr: "Le sens du service et de la contribution au bien commun. Nous considérons la transmission et l'entraide comme des leviers essentiels de la réussite collective.", en: "A sense of service and contribution to the common good. We see knowledge-sharing and mutual support as key drivers of collective success." } },
+  { name: { fr: "Persévérance", en: "Perseverance" }, desc: { fr: "Toute réussite durable s'inscrit dans le temps. La persévérance traduit la constance de l'effort et la capacité à maintenir le cap face aux obstacles.", en: "Lasting success takes time. Perseverance reflects consistent effort and the ability to hold one's course in the face of obstacles." } },
+  { name: { fr: "Attitude Positive", en: "Positive Attitude" }, desc: { fr: "Une posture constructive face à la complexité et au changement. Elle permet d'analyser les difficultés avec lucidité et d'y reconnaître des opportunités d'apprentissage.", en: "A constructive stance towards complexity and change. It allows difficulties to be assessed clearly and recognised as opportunities to learn." } },
+  { name: { fr: "Ambition", en: "Ambition" }, desc: { fr: "L'exigence de se fixer des objectifs élevés et de s'en donner les moyens. Nous encourageons chaque membre à élargir son horizon et à dépasser ses propres limites.", en: "The discipline of setting high goals and giving oneself the means to reach them. We encourage every member to broaden their horizons and surpass their own limits." } },
+  { name: { fr: "Ne Jamais Abandonner", en: "Never Give Up" }, desc: { fr: "La résilience face à l'adversité. L'échec y est envisagé comme une étape d'apprentissage, et non comme une fin : il éclaire la décision suivante.", en: "Resilience in the face of adversity. Failure is treated as a learning stage, not an end: it informs the next decision." } },
+  { name: { fr: "Style de Vie", en: "Lifestyle" }, desc: { fr: "L'excellence ne se limite pas à la sphère professionnelle. Nous promouvons une hygiène de vie cohérente, au service de l'équilibre personnel et de la performance durable.", en: "Excellence is not limited to professional life. We promote a consistent way of living that supports personal balance and sustainable performance." } },
+  { name: { fr: "Loyauté", en: "Loyalty" }, desc: { fr: "La fidélité aux engagements pris envers la communauté, les partenaires et nos principes. Elle fonde la confiance, condition de toute relation durable.", en: "Faithfulness to commitments made to our community, our partners and our principles. It underpins trust, the condition of any lasting relationship." } },
+  { name: { fr: "Rigueur", en: "Rigor" }, desc: { fr: "La méthode et la discipline dans l'action quotidienne. La rigueur garantit la qualité du travail accompli et la solidité des résultats sur le long terme.", en: "Method and discipline in daily action. Rigor ensures the quality of work and the soundness of results over the long term." } },
 ];
 
 export default function NosValeursPage() {
@@ -89,8 +94,8 @@ export default function NosValeursPage() {
         {/* Mission + Vision */}
         <div className="mv-grid">
           {[
-            { title: t.mission, text: t.missionText, color: '#C8102E' },
-            { title: t.vision, text: t.visionText, color: '#1a6fc4' },
+            { title: t.mission, text: t.missionText, color: RED },
+            { title: t.vision, text: t.visionText, color: NAVY },
           ].map((item) => (
             <div key={item.title} className="mv-card" style={{ borderTopColor: item.color }}>
               <div className="mv-card-glow" style={{ background: item.color }} />
@@ -103,21 +108,17 @@ export default function NosValeursPage() {
 
         {/* Les 9 valeurs */}
         <div className="values-header">
-          <span className="values-label">{lang === 'fr' ? 'Fondamentaux' : 'Core'}</span>
+          <div className="values-label"><span />{lang === 'fr' ? 'Fondamentaux' : 'Core principles'}<span /></div>
           <h2 className="values-title">{lang === 'fr' ? 'Les 9 Valeurs Fondamentales' : 'The 9 Core Values'}</h2>
+          <p className="values-intro">{lang === 'fr' ? 'Elles structurent notre projet pédagogique et la manière dont nous formons nos apprenants.' : 'They shape our educational project and the way we train our learners.'}</p>
         </div>
 
         <div className="values-grid">
           {VALUES.map((v, i) => (
             <div key={i} className="value-card">
-              <div className="value-card-bg" style={{ background: v.color }} />
-              <div className="value-card-inner">
-                <div className="value-number" style={{ color: v.color }}>
-                  {String(i + 1).padStart(2, '0')}
-                </div>
-                <h3 className="value-name" style={{ color: v.color }}>{v.name[lang]}</h3>
-                <p className="value-desc">{v.desc[lang]}</p>
-              </div>
+              <div className="value-number">{ROMAN[i]}</div>
+              <h3 className="value-name">{v.name[lang]}</h3>
+              <p className="value-desc">{v.desc[lang]}</p>
             </div>
           ))}
         </div>
@@ -218,7 +219,7 @@ export default function NosValeursPage() {
           font-family: 'Montserrat', sans-serif;
           font-weight: 900;
           font-size: clamp(32px, 5vw, 56px);
-          color: #1a1a1a;
+          color: #13213a;
           margin-bottom: 12px;
           letter-spacing: -0.02em;
         }
@@ -236,7 +237,7 @@ export default function NosValeursPage() {
         }
 
         .quote-section {
-          background: linear-gradient(135deg, #1a0005 0%, #2d0008 100%);
+          background: linear-gradient(135deg, #0e1a2e 0%, #1b2c48 100%);
           border-radius: 16px;
           padding: clamp(32px, 4vw, 56px);
           margin-bottom: 56px;
@@ -250,7 +251,7 @@ export default function NosValeursPage() {
           top: -30px;
           left: 30px;
           font-size: 140px;
-          color: rgba(200,16,46,0.12);
+          color: rgba(168,134,90,0.18);
           font-family: Georgia,serif;
           line-height: 1;
           font-weight: 700;
@@ -327,14 +328,14 @@ export default function NosValeursPage() {
           font-family: 'Montserrat', sans-serif;
           font-weight: 900;
           font-size: clamp(18px, 2vw, 24px);
-          color: #1a1a1a;
+          color: #13213a;
           margin-bottom: 14px;
           position: relative;
           z-index: 1;
         }
 
         .mv-text {
-          color: #666;
+          color: #5f6673;
           font-size: 15px;
           line-height: 1.8;
           position: relative;
@@ -348,127 +349,107 @@ export default function NosValeursPage() {
         }
 
         .values-label {
-          display: inline-block;
-          background: #fdf9e8;
-          color: #f0a500;
+          display: inline-flex;
+          align-items: center;
+          gap: 12px;
+          color: #a8865a;
           font-family: 'Montserrat', sans-serif;
           font-weight: 700;
           font-size: 11px;
-          padding: 4px 16px;
-          border-radius: 100px;
           text-transform: uppercase;
-          letter-spacing: 0.15em;
-          margin-bottom: 12px;
+          letter-spacing: 0.22em;
+          margin-bottom: 14px;
+        }
+
+        .values-label span {
+          width: 28px;
+          height: 1px;
+          background: #a8865a;
         }
 
         .values-title {
           font-family: 'Montserrat', sans-serif;
           font-weight: 900;
           font-size: clamp(24px, 3vw, 36px);
-          color: #1a1a1a;
+          color: #13213a;
           letter-spacing: -0.02em;
+          margin-bottom: 10px;
         }
 
-        /* ===== NEW VALUE CARDS DESIGN ===== */
+        .values-intro {
+          color: #6b7280;
+          font-size: 15px;
+          line-height: 1.7;
+          max-width: 560px;
+          margin: 0 auto;
+        }
+
         .values-grid {
           display: grid;
           grid-template-columns: repeat(3, 1fr);
-          gap: 24px;
+          gap: 20px;
           margin-bottom: 64px;
         }
 
         .value-card {
           position: relative;
-          border-radius: 20px;
-          overflow: hidden;
-          cursor: default;
-          transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.4s ease;
           background: white;
-          box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+          border: 1px solid #e3e6eb;
+          border-radius: 14px;
+          padding: 30px 28px 28px;
+          transition: border-color 0.25s ease, box-shadow 0.25s ease, transform 0.25s ease;
+        }
+
+        .value-card::before {
+          content: '';
+          position: absolute;
+          top: -1px;
+          left: 28px;
+          width: 36px;
+          height: 3px;
+          background: #C8102E;
+          border-radius: 0 0 2px 2px;
+          transition: width 0.3s ease;
         }
 
         .value-card:hover {
-          transform: translateY(-8px) scale(1.02);
-          box-shadow: 0 24px 48px rgba(0,0,0,0.12);
+          border-color: #cfd5de;
+          box-shadow: 0 14px 36px rgba(19,33,58,0.08);
+          transform: translateY(-3px);
         }
 
-        .value-card-bg {
-          position: absolute;
-          top: 0;
-          left: 0;
-          right: 0;
-          height: 6px;
-          opacity: 0.8;
-          transition: height 0.4s ease, opacity 0.4s ease;
-        }
-
-        .value-card:hover .value-card-bg {
-          height: 100%;
-          opacity: 0.06;
-        }
-
-        .value-card-inner {
-          position: relative;
-          z-index: 1;
-          padding: 32px 28px;
-          background: white;
-          border-radius: 20px;
-          margin-top: 0;
+        .value-card:hover::before {
+          width: 64px;
         }
 
         .value-number {
-          font-family: 'Montserrat', sans-serif;
-          font-weight: 900;
-          font-size: 48px;
+          font-family: Georgia, 'Times New Roman', serif;
+          font-size: 30px;
           line-height: 1;
-          margin-bottom: 16px;
-          opacity: 0.15;
-          transition: opacity 0.3s ease, transform 0.3s ease;
-        }
-
-        .value-card:hover .value-number {
-          opacity: 0.35;
-          transform: scale(1.1);
+          color: #a8865a;
+          margin-bottom: 18px;
         }
 
         .value-name {
           font-family: 'Montserrat', sans-serif;
           font-weight: 800;
-          font-size: 16px;
+          font-size: 15px;
           text-transform: uppercase;
-          letter-spacing: 0.08em;
-          margin: 0 0 14px 0;
-          position: relative;
-          display: inline-block;
-        }
-
-        .value-name::after {
-          content: '';
-          position: absolute;
-          bottom: -6px;
-          left: 0;
-          width: 32px;
-          height: 3px;
-          background: currentColor;
-          opacity: 0.4;
-          border-radius: 2px;
-          transition: width 0.3s ease;
-        }
-
-        .value-card:hover .value-name::after {
-          width: 48px;
+          letter-spacing: 0.07em;
+          color: #13213a;
+          margin: 0 0 12px 0;
         }
 
         .value-desc {
-          color: #777;
+          color: #5f6673;
           font-size: 14px;
-          line-height: 1.8;
-          margin: 16px 0 0 0;
+          line-height: 1.75;
+          margin: 0;
           font-family: 'Inter', sans-serif;
         }
 
         .cta-section {
-          background: linear-gradient(135deg, #1a0005 0%, #2d0008 100%);
+          background: linear-gradient(135deg, #0e1a2e 0%, #1b2c48 100%);
           border-radius: 16px;
           padding: clamp(40px, 5vw, 64px);
           text-align: center;
@@ -480,7 +461,7 @@ export default function NosValeursPage() {
           position: absolute;
           border-radius: 50%;
           pointer-events: none;
-          background: rgba(200,16,46,0.08);
+          background: rgba(168,134,90,0.08);
         }
 
         .cta-glow-1 {

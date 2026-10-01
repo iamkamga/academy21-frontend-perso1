@@ -11,16 +11,18 @@ const STATS = [
 ];
 
 const VALUES = [
-  { label: 'Foi', desc: 'Croire en soi et en son potentiel' },
-  { label: 'Charité', desc: 'Donner sans compter' },
-  { label: 'Persévérance', desc: 'Ne jamais abandonner' },
-  { label: 'Attitude Positive', desc: 'Voir l\'opportunité partout' },
-  { label: 'Ambition', desc: 'Viser toujours plus haut' },
-  { label: 'Never Give Up', desc: 'La résilience face aux obstacles' },
-  { label: 'Lifestyle', desc: 'Vivre selon ses termes' },
-  { label: 'Loyauté', desc: 'Rester fidèle à ses engagements' },
-  { label: 'Rigueur', desc: 'Excellence dans chaque action' },
+  { label: 'Foi', desc: 'La confiance en sa vocation et en sa capacité à progresser.' },
+  { label: 'Charité', desc: 'Le sens du service et de la contribution au bien commun.' },
+  { label: 'Persévérance', desc: 'La constance de l\'effort, condition de toute réussite durable.' },
+  { label: 'Attitude Positive', desc: 'Une posture constructive face à la complexité et au changement.' },
+  { label: 'Ambition', desc: 'L\'exigence de se fixer des objectifs élevés et de s\'y tenir.' },
+  { label: 'Never Give Up', desc: 'La résilience : apprendre de l\'échec et poursuivre l\'effort.' },
+  { label: 'Lifestyle', desc: 'Une hygiène de vie au service de l\'équilibre et de la performance.' },
+  { label: 'Loyauté', desc: 'La fidélité aux engagements pris envers autrui et envers soi.' },
+  { label: 'Rigueur', desc: 'La méthode et la discipline, fondements de l\'excellence.' },
 ];
+
+const ROMAN = ['I', 'II', 'III', 'IV', 'V', 'VI', 'VII', 'VIII', 'IX'];
 
 // Icônes SVG minimalistes
 const IconGlobe = () => (
@@ -430,49 +432,47 @@ export default function HomePage() {
       </section>
 
       {/* ══ VALEURS ══ */}
-      <section style={{ padding: 'clamp(60px,8vw,100px) 0', background: '#f7f8fa' }}>
+      <section style={{ padding: 'clamp(60px,8vw,100px) 0', background: '#f6f7f9' }}>
         <div className="container">
           <div style={{ textAlign: 'center', marginBottom: '48px' }}>
-            <span style={{ display: 'inline-block', background: '#fdf9e8', color: '#f0a500', fontFamily: "'Montserrat', sans-serif", fontWeight: 700, fontSize: '11px', padding: '4px 16px', borderRadius: '100px', textTransform: 'uppercase', letterSpacing: '0.15em', marginBottom: '12px' }}>
-              Notre ADN
-            </span>
-            <h2 style={{ fontFamily: "'Montserrat', sans-serif", fontWeight: 900, fontSize: 'clamp(28px,4vw,48px)', color: '#1a1a1a' }}>
-              Nos <span style={{ color: '#f0a500' }}>9 Valeurs</span>
+            <div style={{ display: 'inline-flex', alignItems: 'center', gap: '12px', marginBottom: '14px' }}>
+              <span style={{ width: '28px', height: '1px', background: '#a8865a' }} />
+              <span style={{ color: '#a8865a', fontFamily: "'Montserrat', sans-serif", fontWeight: 700, fontSize: '11px', textTransform: 'uppercase', letterSpacing: '0.22em' }}>Notre ADN</span>
+              <span style={{ width: '28px', height: '1px', background: '#a8865a' }} />
+            </div>
+            <h2 style={{ fontFamily: "'Montserrat', sans-serif", fontWeight: 900, fontSize: 'clamp(28px,4vw,48px)', color: '#13213a', marginBottom: '12px' }}>
+              Nos <span style={{ color: '#C8102E' }}>9 Valeurs</span>
             </h2>
+            <p style={{ color: '#6b7280', fontSize: '15px', lineHeight: 1.7, maxWidth: '560px', margin: '0 auto' }}>
+              Les principes qui fondent notre pédagogie et guident chaque membre de la communauté Academy 21.
+            </p>
           </div>
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(200px, 1fr))', gap: '16px', marginBottom: '32px' }}>
+          <div className="values-home-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '0', marginBottom: '36px', background: 'white', border: '1px solid #e3e6eb', borderRadius: '14px', overflow: 'hidden' }}>
             {VALUES.map((v, i) => (
-              <div key={i} style={{ background: 'white', borderRadius: '12px', padding: '28px', textAlign: 'left', border: '1px solid #e0e2e6', transition: 'transform 0.2s, box-shadow 0.2s, border-color 0.2s' }}
-                onMouseEnter={e => { (e.currentTarget as HTMLElement).style.transform = 'translateY(-4px)'; (e.currentTarget as HTMLElement).style.boxShadow = '0 8px 24px rgba(0,0,0,0.06)'; (e.currentTarget as HTMLElement).style.borderColor = '#f0a50040'; }}
-                onMouseLeave={e => { (e.currentTarget as HTMLElement).style.transform = 'translateY(0)'; (e.currentTarget as HTMLElement).style.boxShadow = 'none'; (e.currentTarget as HTMLElement).style.borderColor = '#e0e2e6'; }}
+              <div key={i} className="value-home-card" style={{ padding: '28px 30px', borderRight: '1px solid #eef0f3', borderBottom: '1px solid #eef0f3', display: 'flex', gap: '18px', alignItems: 'flex-start', transition: 'background 0.2s' }}
+                onMouseEnter={e => { (e.currentTarget as HTMLElement).style.background = '#fafbfc'; }}
+                onMouseLeave={e => { (e.currentTarget as HTMLElement).style.background = 'white'; }}
               >
-                <div style={{ 
-                  width: '36px', 
-                  height: '36px', 
-                  borderRadius: '8px', 
-                  background: '#fdf9e8', 
-                  display: 'flex', 
-                  alignItems: 'center', 
-                  justifyContent: 'center',
-                  marginBottom: '14px',
-                  fontFamily: "'Montserrat', sans-serif",
-                  fontWeight: 900,
-                  fontSize: '14px',
-                  color: '#f0a500',
-                }}>
-                  {String(i + 1).padStart(2, '0')}
+                <div style={{ fontFamily: "Georgia, 'Times New Roman', serif", fontSize: '22px', color: '#a8865a', minWidth: '54px', lineHeight: 1.1, paddingTop: '1px' }}>
+                  {ROMAN[i]}.
                 </div>
-                <div style={{ fontFamily: "'Montserrat', sans-serif", fontWeight: 800, fontSize: '15px', color: '#1a1a1a', marginBottom: '6px', textTransform: 'uppercase', letterSpacing: '0.04em' }}>{v.label}</div>
-                <div style={{ fontSize: '13px', color: '#888', lineHeight: 1.5, fontFamily: "'Inter', sans-serif" }}>{v.desc}</div>
+                <div>
+                  <div style={{ fontFamily: "'Montserrat', sans-serif", fontWeight: 800, fontSize: '14px', color: '#13213a', marginBottom: '6px', textTransform: 'uppercase', letterSpacing: '0.06em' }}>{v.label}</div>
+                  <div style={{ fontSize: '13.5px', color: '#6b7280', lineHeight: 1.6 }}>{v.desc}</div>
+                </div>
               </div>
             ))}
           </div>
           <div style={{ textAlign: 'center' }}>
-            <Link href="/nos-valeurs" style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', color: '#f0a500', fontFamily: "'Montserrat', sans-serif", fontWeight: 700, fontSize: '13px', textTransform: 'uppercase', letterSpacing: '0.08em', padding: '12px 28px', border: '2px solid #f0a500', borderRadius: '8px', textDecoration: 'none' }}>
+            <Link href="/nos-valeurs" style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', color: '#13213a', fontFamily: "'Montserrat', sans-serif", fontWeight: 700, fontSize: '13px', textTransform: 'uppercase', letterSpacing: '0.08em', padding: '12px 28px', border: '1.5px solid #13213a', borderRadius: '8px', textDecoration: 'none' }}>
               Découvrir nos valeurs →
             </Link>
           </div>
         </div>
+        <style>{`
+          @media (max-width: 900px) { .values-home-grid { grid-template-columns: 1fr 1fr !important; } }
+          @media (max-width: 600px) { .values-home-grid { grid-template-columns: 1fr !important; } }
+        `}</style>
       </section>
 
       {/* ══ TÉMOIGNAGES ══ */}
