@@ -15,13 +15,14 @@ const NAV_ITEMS = [
     ],
   },
   {
-    label: 'Activités',
+    label: 'Programmes',
     children: [
-      { label: 'Nos Formations', href: '/formations' },
+      { label: 'IA Appliquée', href: '/formations' },
       { label: 'Événements à Venir', href: '/evenements' },
-      { label: 'Business Show', href: '/rejoindre-academie/business-show' },
-      { label: 'LeaderCamp', href: '/rejoindre-academie/leadercamp' },
-      { label: 'A21 Training', href: '/rejoindre-academie/a21-training' },
+      { label: 'Bachelors', href: '/programmes/bachelors' },
+      { label: 'Mastères', href: '/programmes/masteres' },
+      { label: 'Executive MBA', href: '/programmes/executive-mba' },
+      { label: 'Formations Professionnelles', href: '/programmes/formations-professionnelles' },
     ],
   },
   {
@@ -192,7 +193,7 @@ export default function Navbar() {
                               fontSize: '12px', letterSpacing: '0.06em', textTransform: 'uppercase',
                               color: '#333',
                               borderBottom: ci < item.children!.length - 1 ? '1px solid #f0f1f3' : 'none',
-                              transition: 'all 0.15s', background: 'white', textDecoration: 'none',
+                              transition: 'all 0.15s', background: 'white', textDecoration: 'none', whiteSpace: 'nowrap',
                             }}
                             onMouseEnter={e => { e.currentTarget.style.background = '#fff5f5'; e.currentTarget.style.color = '#C8102E'; e.currentTarget.style.paddingLeft = '24px'; }}
                             onMouseLeave={e => { e.currentTarget.style.background = 'white'; e.currentTarget.style.color = '#333'; e.currentTarget.style.paddingLeft = '20px'; }}
