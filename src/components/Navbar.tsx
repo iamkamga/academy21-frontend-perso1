@@ -33,6 +33,7 @@ const NAV_ITEMS = [
       { label: 'Mon Programme', href: '/dashboard' },
     ],
   },
+  { label: 'International', href: '/international' },
 ];
 
 export default function Navbar() {
