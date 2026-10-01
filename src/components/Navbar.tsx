@@ -33,7 +33,6 @@ const NAV_ITEMS = [
       { label: 'Mon Programme', href: '/dashboard' },
     ],
   },
-  { label: 'Nos Universités', href: '/formations' },
 ];
 
 export default function Navbar() {
