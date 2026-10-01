@@ -105,10 +105,22 @@ const programme: Programme = {
   legalNote: '* Parcours préparant au Titre professionnel Responsable d’établissement marchand — RNCP38666 — niveau 6, en partenariat avec GREEN UP ACADEMY. Le niveau 6 correspond au niveau de qualification communément présenté comme Bac+3 / Bac+4 ; Academy 21 University positionne ce parcours comme un Bachelor Bac+3.',
   cta: {
     title: 'Prêt à piloter votre propre activité ?',
-    text: 'Déposez votre candidature : l’admission se fait sur dossier et entretien de positionnement.',
+    text: 'Réservez votre place dès maintenant avec l’acompte d’inscription, ou déposez d’abord votre candidature. L’admission se fait sur dossier et entretien de positionnement.',
     label: 'Candidater au Bachelor',
     href: '/candidature',
-    footnote: 'Bac+3 · Niveau 6 · 420 h · Présentiel, distanciel ou hybride',
+    footnote: '🔒 Paiement sécurisé par carte ou PayPal · Acompte déduit des frais de scolarité',
+  },
+  card: {
+    icon: 'bachelor',
+    bandLabel: 'Management & Performance',
+    badges: ['Bachelor · Bac+3', 'RNCP38666'],
+    price: 'Acompte 500 €',
+    priceMeta: 'Scolarité 6 900 € · 420 heures · Hybride',
+    title: 'Bachelor Management Stratégique & Opérationnel',
+    description: 'Devenez manager d’un centre de profit : pilotez l’activité commerciale, construisez budgets et tableaux de bord, recrutez et animez vos équipes. 12 enseignements professionnalisants et une préparation complète au Titre Responsable d’établissement marchand.',
+    tags: ['12 enseignements', '420 h', 'Bac+3 · Niveau 6', 'Présentiel · Distanciel'],
+    primary: { label: 'S’inscrire — 500 €', href: '/programmes/bachelors/inscription' },
+    secondary: { label: 'Déposer ma candidature', href: '/candidature' },
   },
 };
 

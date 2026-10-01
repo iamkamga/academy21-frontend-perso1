@@ -5,6 +5,7 @@
 
 import crypto from 'node:crypto';
 import { sql } from '@/lib/db';
+import { getProgramme } from '@/lib/catalogue';
 
 export interface Formation {
   id: string;
@@ -23,7 +24,19 @@ export async function createPendingPayment(
   formationId: string,
   method: 'stripe' | 'paypal',
 ): Promise<{ paymentId: string; formation: Formation }> {
-  const rows = await sql`SELECT * FROM formations WHERE id = ${formationId}`;
+  let rows = await sql`SELECT * FROM formations WHERE id = ${formationId}`;
+  if (rows.length === 0) {
+    // Programme du catalogue pas encore en base : on le crée à la volée.
+    const prog = getProgramme(formationId);
+    if (prog) {
+      await sql`
+        INSERT INTO formations (id, title, description, price, image_url)
+        VALUES (${prog.id}, ${prog.title}, ${prog.description}, ${prog.price}, ${prog.imageUrl})
+        ON CONFLICT (id) DO NOTHING
+      `;
+      rows = await sql`SELECT * FROM formations WHERE id = ${formationId}`;
+    }
+  }
   if (rows.length === 0) throw new Error('Formation introuvable');
   const formation = rows[0] as unknown as Formation;
 

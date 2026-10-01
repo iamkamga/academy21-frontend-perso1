@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 import { api, Formation } from '@/lib/api';
 import { useAuth } from '@/hooks/useAuth';
 import { useRouter } from 'next/navigation';
+import { PROGRAMME_IDS } from '@/lib/catalogue';
 
 export default function FormationsPage() {
   const [formations, setFormations] = useState<Formation[]>([]);
@@ -15,7 +16,7 @@ export default function FormationsPage() {
 
   useEffect(() => {
     api.formations.list()
-      .then(setFormations)
+      .then(list => setFormations(list.filter(f => !PROGRAMME_IDS.has(f.id))))
       .catch(() => setError('Impossible de charger les formations.'))
       .finally(() => setLoading(false));
   }, []);

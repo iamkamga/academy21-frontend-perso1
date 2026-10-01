@@ -102,6 +102,18 @@ const programme: Programme = {
     href: '/formations/ia-marketing-reseau/inscription',
     footnote: '🔒 Paiement sécurisé · 20h de formation · Distanciel synchrone',
   },
+  card: {
+    icon: 'ia',
+    bandLabel: 'Intelligence Artificielle',
+    badges: ['Formation pro', 'Distanciel'],
+    price: '490 €',
+    priceMeta: '20 heures · 5 séances de 4 h',
+    title: 'IA appliquée au Marketing de Réseau',
+    description: 'Intégrez l’intelligence artificielle dans votre activité de réseau : prospection augmentée, personal branding, conversion et recrutement, automatisation et pilotage. Vous repartez avec votre propre système de prospection assisté par IA.',
+    tags: ['5 modules', '20h', 'Distanciel synchrone', '8-15 pers.'],
+    primary: { label: 'S’inscrire — 490 €', href: '/formations/ia-marketing-reseau/inscription' },
+    secondary: { label: 'Voir le programme détaillé', href: '/formations/ia-marketing-reseau' },
+  },
 };
 
 export default function FormationsProfessionnellesPage() {

@@ -117,10 +117,23 @@ const programme: Programme = {
   legalNote: 'Note. La dénomination « Executive MBA » désigne ici le programme d’établissement d’Academy Twenty One University. Elle ne constitue pas en elle-même un grade universitaire, un diplôme national ou une certification RNCP. Les éventuelles certifications professionnelles associées font l’objet d’une information distincte et conforme aux habilitations effectivement détenues.',
   cta: {
     title: 'Prêt à gouverner la transformation ?',
-    text: 'Admission sélective sur dossier et entretien Executive. Déposez votre candidature pour la prochaine cohorte.',
+    text: 'Réservez votre place dans la prochaine cohorte avec l’acompte d’inscription. L’admission reste confirmée après l’entretien Executive.',
     label: 'Candidater à l’Executive MBA',
     href: '/candidature',
-    footnote: '12 mois · 360 h + Executive Impact Project · Executive Education',
+    footnote: '🔒 Paiement sécurisé par carte ou PayPal · Acompte déduit des frais de scolarité',
+  },
+  card: {
+    icon: 'executive',
+    bandLabel: 'Executive Education',
+    badges: ['Executive MBA', 'Haute direction'],
+    price: 'Acompte 1 500 €',
+    priceMeta: 'Scolarité 19 500 € · 12 mois · 360 heures',
+    title: 'Executive MBA Gouvernance, Leadership & Transformation',
+    description: 'Le programme des dirigeants : donner le cap, arbitrer, mobiliser et transformer. 12 séminaires de haute intensité, boardroom simulations, coaching exécutif et un Executive Impact Project défendu devant un Board.',
+    tags: ['12 modules', '12 mois', 'Week-ends & séminaires', '7 ans d’expérience'],
+    primary: { label: 'S’inscrire — 1 500 €', href: '/programmes/executive-mba/inscription' },
+    secondary: { label: 'Déposer ma candidature', href: '/candidature' },
+    gradient: 'linear-gradient(135deg, #0a0806 0%, #1c1408 50%, #1a0005 100%)',
   },
 };
 

@@ -132,10 +132,23 @@ const programme: Programme = {
   legalNote: '* Programme pédagogique conçu en cohérence avec le RNCP39994 « Manager des transformations des organisations », niveau 7, certificateur IRUP, échéance d’enregistrement au 18/12/2027. L’obtention de la certification suppose la validation des quatre blocs et l’inscription auprès du certificateur. La présente page décrit le programme pédagogique A21 University ; elle ne vaut pas, à elle seule, habilitation du certificateur.',
   cta: {
     title: 'Prêt à conduire la transformation ?',
-    text: 'Déposez votre candidature : admission sur dossier, entretien et validation du projet professionnel.',
+    text: 'Réservez votre place avec l’acompte d’inscription, ou déposez d’abord votre candidature. Admission sur dossier, entretien et validation du projet professionnel.',
     label: 'Candidater au Mastère',
     href: '/candidature',
-    footnote: 'Bac+5 · Niveau 7 · 2 ans · 900 h',
+    footnote: '🔒 Paiement sécurisé par carte ou PayPal · Acompte déduit des frais de scolarité',
+  },
+  card: {
+    icon: 'mastere',
+    bandLabel: 'Stratégie & Transformation',
+    badges: ['Mastère · Bac+5', 'Niveau 7'],
+    price: 'Acompte 800 €',
+    priceMeta: 'Scolarité 8 500 € / an · 2 ans · 900 heures',
+    title: 'Mastère Stratégie, Leadership & Transformation des Organisations',
+    description: 'Passez du pilotage d’une activité à la conduite globale d’une transformation : diagnostic stratégique, finance et création de valeur, conduite du changement, IA stratégique et leadership exécutif. Missions de conseil, simulations de CODIR et Grand Oral.',
+    tags: ['21 enseignements', 'M1 + M2', '900 h', 'Alternance possible'],
+    primary: { label: 'S’inscrire — 800 €', href: '/programmes/masteres/inscription' },
+    secondary: { label: 'Déposer ma candidature', href: '/candidature' },
+    gradient: 'linear-gradient(135deg, #05070d 0%, #0b1424 45%, #1a0010 100%)',
   },
 };
 

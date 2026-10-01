@@ -17,6 +17,7 @@ import { neon } from '@neondatabase/serverless';
 config({ path: '.env.local' });
 import bcrypt from 'bcryptjs';
 import crypto from 'node:crypto';
+import { PROGRAMMES_PAYANTS } from '../src/lib/catalogue';
 
 if (!process.env.DATABASE_URL) {
   console.error('❌ DATABASE_URL manquant dans .env.local');
@@ -105,6 +106,15 @@ async function main() {
     )
     ON CONFLICT (id) DO NOTHING
   `;
+
+  console.log('🎓 Seed programmes (Bachelor, Mastère, Executive MBA)…');
+  for (const p of PROGRAMMES_PAYANTS) {
+    await sql`
+      INSERT INTO formations (id, title, description, price, image_url)
+      VALUES (${p.id}, ${p.title}, ${p.description}, ${p.price}, ${p.imageUrl})
+      ON CONFLICT (id) DO NOTHING
+    `;
+  }
 
   console.log('👤 Seed compte administrateur…');
   const adminEmail = (process.env.ADMIN_EMAIL || 'admin@academy21france.fr').toLowerCase();

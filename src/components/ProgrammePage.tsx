@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import ProgrammeCard, { ProgrammeCardProps } from '@/components/ProgrammeCard';
 
 const RED = '#C8102E';
 const COLORS = ['#C8102E', '#1a6fc4', '#f0a500', '#28a745', '#7b2d8b', '#0e8a8a'];
@@ -34,6 +35,7 @@ export type Programme = {
   pathway?: { title: string; rows: { level: string; role: string; text: string }[] };
   legalNote?: string;
   cta: { title: string; text: string; label: string; href: string; footnote: string };
+  card?: ProgrammeCardProps;
 };
 
 const h2Style: React.CSSProperties = {
@@ -286,15 +288,21 @@ export default function ProgrammePage({ p }: { p: Programme }) {
 
       {/* CTA */}
       <div style={{ background: 'linear-gradient(135deg, #1a0005 0%, #2d0008 100%)', padding: 'clamp(40px,6vw,80px) 24px', textAlign: 'center', marginTop: '24px' }}>
-        <div className="container">
+        <div className="container" id="inscription">
           <div style={{ fontFamily: 'Montserrat,sans-serif', fontWeight: 900, fontSize: 'clamp(22px,4vw,38px)', color: 'white', marginBottom: '16px' }}>{p.cta.title}</div>
           <p style={{ color: 'rgba(255,255,255,0.6)', fontSize: '15px', maxWidth: '520px', margin: '0 auto 32px' }}>{p.cta.text}</p>
+          {p.card ? (
+            <div style={{ maxWidth: '1000px', margin: '0 auto 20px', textAlign: 'left' }}>
+              <ProgrammeCard {...p.card} />
+            </div>
+          ) : (
           <div style={{ display: 'flex', justifyContent: 'center', marginBottom: '20px' }}>
             <Link href={p.cta.href} style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', background: RED, color: 'white', fontFamily: 'Montserrat,sans-serif', fontWeight: 800, fontSize: '15px', padding: '16px 36px', borderRadius: '8px', textDecoration: 'none', textTransform: 'uppercase', letterSpacing: '0.06em' }}>
               {p.cta.label}
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><path d="M5 12h14M12 5l7 7-7 7" /></svg>
             </Link>
           </div>
+          )}
           <p style={{ color: 'rgba(255,255,255,0.35)', fontSize: '12px' }}>{p.cta.footnote}</p>
         </div>
       </div>
